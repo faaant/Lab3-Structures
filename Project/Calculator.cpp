@@ -19,7 +19,6 @@ void calculate(queue<char>& outputQ)
                  saver.push(num);
             }
             if (!output.empty()) output.pop();
-            printQ(output);
         }
 
         while ((!isdigit(output.front()))&&(!output.empty())&&(!isdigit(output.front()-'-')))
