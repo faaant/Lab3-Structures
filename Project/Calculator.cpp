@@ -36,6 +36,41 @@ void calculate(queue<char>& outputQ)
                 saver.push(mult);
                 output.pop();
             }
+            else if (output.front()=='/')
+            {
+                int num= saver.pop();
+                int division = saver.pop() / num;
+                saver.push(division);
+                output.pop();
+            }
+            else if (output.front()=='-')
+            {
+                int num=saver.pop();
+                int substraction =saver.pop()-num;
+                saver.push(substraction);
+                output.pop();
+            }
+            else if (output.front()=='$')
+            {
+                int degreeOfNumber=1;
+                int elements[degreeOfNumber];
+                output.pop();
+                while(output.front()=='$')
+                {
+                    output.pop();
+                    degreeOfNumber++;
+                }
+                cout<< degreeOfNumber<<endl<<endl;
+                for(int i=0; i<=degreeOfNumber;i++)
+                {
+                    elements[i]=saver.pop();
+                }
+                for(int i=1; i<=degreeOfNumber;i++)
+                {
+                    elements[i]= pow(elements[i],elements[i-1]);
+                }
+                saver.push(elements[degreeOfNumber]);
+            }
 
 
     }
