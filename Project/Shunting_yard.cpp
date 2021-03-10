@@ -54,7 +54,8 @@ void shuntingYard(queue<char>& output, int numOfElements, char row[])
                 output.push(c);
                 operators.pop();
             }
-
+            c=row[i];
+            operators.push(c);
         }
         else if (row[i]=='(')
         {
