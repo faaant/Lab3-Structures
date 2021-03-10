@@ -20,7 +20,6 @@ void calculate(queue<char>& outputQ)
             }
             if (!output.empty()) output.pop();
         }
-
         while ((!isdigit(output.front()))&&(!output.empty())&&(!isdigit(output.front()-'-')))
         {
             if (output.front()=='+')
@@ -59,7 +58,6 @@ void calculate(queue<char>& outputQ)
                     output.pop();
                     degreeOfNumber++;
                 }
-                cout<< degreeOfNumber<<endl<<endl;
                 for(int i=0; i<=degreeOfNumber;i++)
                 {
                     elements[i]=saver.pop();
@@ -68,9 +66,10 @@ void calculate(queue<char>& outputQ)
                 {
                     elements[i]= pow(elements[i],elements[i-1]);
                 }
-                saver.push(elements[degreeOfNumber]);
+                saver.push(elements[degr
+                           eeOfNumber]);
             }
-
+        }
 
     }
     if(!saver.empty()) cout<<endl<<saver.pop();
