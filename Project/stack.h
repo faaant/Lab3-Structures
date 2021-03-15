@@ -1,28 +1,22 @@
 struct stack
 {
     int massSize=-1;
-    char *massOfElements;
+    char *massOfElements=(char *) malloc(1*sizeof(char));
 
 
     void clear()
     {
         massSize=-1;
-        delete[] massOfElements;
+        free(massOfElements);
+        char *massOfElements=(char *) malloc(1*sizeof(char));
     }
 
 
     void push(char addedElement)
     {
         massSize++;
-        char *renewedMassOfElements = new char[massSize];
-        for (int i=0; i<=massSize-1;i++)
-            {
-                 renewedMassOfElements[i]= massOfElements[i];
-            }
-        renewedMassOfElements[massSize]= addedElement;
-        if (massSize>0)
-            delete[] massOfElements;
-        massOfElements=renewedMassOfElements;
+        realloc(massOfElements,massSize+1);
+        massOfElements[massSize] = addedElement;
     }
 
 
@@ -32,14 +26,7 @@ struct stack
         massSize--;
         if(massSize!=-1)
         {
-            char *renewedMassOfElements = new char[massSize];
-            for (int i=0; i<=massSize;i++)
-            {
-                 renewedMassOfElements[i]= massOfElements[i];
-            }
-            delete[] massOfElements;
-            massOfElements=renewedMassOfElements;
-
+            realloc(massOfElements,massSize+1);
         }
         else
         {
@@ -47,6 +34,7 @@ struct stack
         }
         return returnedElement;
     }
+
 
     bool empty()
     {
@@ -64,52 +52,39 @@ struct stack
         return massOfElements[massSize];
     }
 
-
 };
-
 
 struct stackInt
 {
     int massSize=-1;
-    int *massOfElements;
+    int *massOfElements=(int *) malloc(1*sizeof(int));
 
 
     void clear()
     {
         massSize=-1;
-        delete[] massOfElements;
+        free(massOfElements);
+        int *massOfElements=(int *) malloc(1*sizeof(int));
     }
 
 
     void push(int addedElement)
     {
         massSize++;
-        int *renewedMassOfElements = new int[massSize];
-        for (int i=0; i<=massSize-1;i++)
-            {
-                 renewedMassOfElements[i]= massOfElements[i];
-            }
-        renewedMassOfElements[massSize]= addedElement;
-        if (massSize>0)
-            delete[] massOfElements;
-        massOfElements=renewedMassOfElements;
+        realloc(massOfElements,massSize+1);
+        massOfElements[massSize] = addedElement;
     }
 
 
     int pop()
     {
-        int returnedElement=massOfElements[massSize];
+        int returnedElement;
+        if (massSize!=-1) {returnedElement=massOfElements[massSize];}
+        else returnedElement=0;
         massSize--;
         if(massSize!=-1)
         {
-            int *renewedMassOfElements = new int[massSize];
-            for (int i=0; i<=massSize;i++)
-            {
-                 renewedMassOfElements[i]= massOfElements[i];
-            }
-            delete[] massOfElements;
-            massOfElements=renewedMassOfElements;
-
+            realloc(massOfElements,massSize+1);
         }
         else
         {
@@ -136,3 +111,4 @@ struct stackInt
     }
 
 };
+
