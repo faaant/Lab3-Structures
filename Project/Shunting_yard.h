@@ -4,4 +4,4 @@
 #include "divideToChars.h"
 using namespace std;
 
-void shuntingYard(queue<char>&, int, char []);
+void shuntingYard(string&, int, char []);//queue<char>&

@@ -11,13 +11,15 @@ using namespace std;
 int main(int argc, char* argv[])
 {
 
-    queue<char> output;
+ //   queue<char> output;
+    string output="";
     char row[argc*1000];
     int numOfElements=0;
     divideToChars(argc,argv,numOfElements,row);
     shuntingYard(output,numOfElements,row);
+    cout<< output <<endl;
     calculate(output);
-    while (!output.empty())
-        output.pop();
+//    while (!output.empty())
+//        output.pop();
     return 0;
 }

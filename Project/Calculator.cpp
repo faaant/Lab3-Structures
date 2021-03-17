@@ -1,76 +1,92 @@
 #include "Calculator.h"
 #include "stack.h"
 #include "Prints.h"
-void calculate(queue<char>& outputQ)
+void calculate(string outputQ)
 {
-    queue<char> output = outputQ;
-    stackInt saver;
+    string output = outputQ;
+    stackDouble saver;
     int result=0;
-    int stop;
-    while (!output.empty())
+    int i=0,
+        i1=0;
+    while (i<output.length())
     {
-        while (((isdigit(output.front()))&&(!output.empty()))||((isdigit(output.front()-'-'))&&(!output.empty())))
+
+        if(isdigit(output[i]))
         {
-            if(isdigit(output.front()))
-                saver.push(charToInt(output.front()));
-            else if(isdigit(output.front()-'-'))
+
+            i1=i;
+            while(isdigit(output[i])) i++;
+            if(output[i]=='.')
             {
-                 int num=(charToInt(output.front()-'-'))*(-1);
-                 saver.push(num);
+                i++;
+                while (isdigit(output[i])) i++;
             }
-            if (!output.empty()) output.pop();
+            saver.push(stof(output.substr(i1,i-i1)));
+
         }
-        while ((!isdigit(output.front()))&&(!output.empty())&&(!isdigit(output.front()-'-')))
+        else if((output[i]=='-') && (isdigit(output[i+1])))
         {
-            if (output.front()=='+')
+            i1=i;
+            i++;
+            while(isdigit(output[i])) i++;
+            if(output[i]=='.')
             {
-                int sum =saver.pop()+ saver.pop();
-                saver.push(sum);
-                output.pop();
+                i++;
+                while (isdigit(output[i])) i++;
             }
-            else if (output.front()=='*')
-            {
-                int mult = saver.pop()*saver.pop();
-                saver.push(mult);
-                output.pop();
-            }
-            else if (output.front()=='/')
-            {
-                int num= saver.pop();
-                int division = saver.pop() / num;
-                saver.push(division);
-                output.pop();
-            }
-            else if (output.front()=='-')
-            {
-                int num=saver.pop();
-                int substraction =saver.pop()-num;
-                saver.push(substraction);
-                output.pop();
-            }
-            else if (output.front()=='$')
-            {
-                int degreeOfNumber=1;
-                int elements[degreeOfNumber];
-                output.pop();
-                while(output.front()=='$')
-                {
-                    output.pop();
-                    degreeOfNumber++;
-                }
-                for(int i=0; i<=degreeOfNumber;i++)
-                {
-                    elements[i]=saver.pop();
-                }
-                for(int i=1; i<=degreeOfNumber;i++)
-                {
-                    elements[i]= pow(elements[i],elements[i-1]);
-                }
-                saver.push(elements[degr
-                           eeOfNumber]);
-            }
+            saver.push(stof(output.substr(i1,i-i1)));
         }
 
+        while ((!isspace(output[i]))&&(!output.empty()))
+        {
+            if (output[i]=='+')
+            {
+                double sum =saver.pop()+ saver.pop();
+                saver.push(sum);
+                i++;
+            }
+            else if (output[i]=='*')
+            {
+                double mult = saver.pop()*saver.pop();
+                saver.push(mult);
+                i++;
+            }
+            else if (output[i]=='/')
+            {
+                double num= saver.pop();
+                double division = saver.pop() / num;
+                saver.push(division);
+                i++;
+            }
+            else if (output[i]=='-')
+            {
+                double num=saver.pop();
+                double substraction =saver.pop()-num;
+                saver.push(substraction);
+                i++;
+            }
+            else if (output[i]=='$')
+            {
+                int degreeOfNumber=1;
+                double elements[degreeOfNumber];
+                i++;
+                while(output[i]=='$')
+                {
+                    i++;
+                    degreeOfNumber++;
+                }
+                for(int j=0; j<=degreeOfNumber;j++)
+                {
+                    elements[j]=saver.pop();
+                }
+                for(int j=1; j<=degreeOfNumber;j++)
+                {
+                    elements[j]= pow(elements[j],elements[j-1]);
+                }
+                saver.push(elements[degreeOfNumber]);
+            }
+        }
+        i++;
     }
     if(!saver.empty()) cout<<endl<<saver.pop();
 }
@@ -84,5 +100,4 @@ int charToInt (char num)
             return i;
     }
 }
-
 
